@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Una colección especial de canciones que recuerdan a Darianny">
+    <title>Para Darianny - Canciones que me recuerdan a ti</title>
+    
+    <!-- Fuentes externas -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-primary: #ff4b6e;
+            --color-secondary: #ff9a9e;
+            --color-text: #333;
+            --transition-fast: 0.2s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--color-secondary), #fad0c4);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--color-primary);
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-family: 'Pacifico', cursive;
+        }
+
+        .song-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .song-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            transition: transform var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+        }
+
+        .song-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .album-art {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            margin-right: 1rem;
+            object-fit: cover;
+            border: 2px solid var(--color-primary);
+        }
+
+        .song-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .song-title {
+            color: var(--color-text);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .artist {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .play-btn {
+            background: var(--color-primary);
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: all var(--transition-fast) ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .play-btn:hover {
+            background: #ff2d55;
+            transform: scale(1.05);
+        }
+
+        .play-btn i {
+            font-size: 1.1em;
+        }
+
+        .dedication {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255, 75, 110, 0.1);
+            border-radius: 10px;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Animación de corazones mejorada */
+        .heart-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            animation: float 3s linear forwards;
+            opacity: 0;
+            font-size: 1.25rem;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .album-art {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .play-btn {
+                padding: 0.6rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Canciones que me recuerdan a ti</h1>
+        
+        <div class="song-list" role="list">
+            <!-- Las canciones se generan dinámicamente -->
+        </div>
+    </div>
+
+    <div class="heart-container" aria-hidden="true"></div>
+
+    <script>
+        // Datos de las canciones
+        const songs = [
+            {
+                id: 1,
+                title: "Congratulations",
+                artist: "Mac Miller",
+                image: "img1.jpg",
+                audio: "song1.mp3"
+            },
+            {
+                id: 2,
+                title: "Like Do You",
+                artist: "Joji",
+                image: "img2.jpg",
+                audio: "song2.mp3"
+            },
+            {
+                id: 3,
+                title: "Yebba's Heartbreak",
+                artist: "Drake",
+                image: "img3.jpg",
+                audio: "song3.mp3"
+            },
+            {
+                id: 4,
+                title: "Surf",
+                artist: "Mac Miller",
+                image: "img4.jpg",
+                audio: "song4.mp3"
+            },
+            {
+                id: 5,
+                title: "Reina Pepiada",
+                artist: "Alvaro Diaz",
+                image: "img5.jpg",
+                audio: "song5.mp3"
+            },
+            {
+                id: 6,
+                title: "Yoko",
+                artist: "Alvaro Diaz",
+                image: "img6.jpg",
+                audio: "song6.mp3"
+            },
+            {
+                id: 7,
+                title: "Dang!",
+                artist: "Mac Miller",
+                image: "img7.jpg",
+                audio: "song7.mp3"
+            },
+             {
+                id: 8,
+                title: "Cosas que no te dije",
+                artist: "Saiko",
+                image: "img8.jpg",
+                audio: "song8.mp3"
+            },
+            {
+                id: 9,
+                title: "See you again",
+                artist: "Tyler the creator",
+                image: "img9.jpg",
+                audio: "song9.mp3"
+            },
+            {
+                id: 10,
+                title: "My favorite part",
+                artist: "Mac Miller(ft arianna)",
+                image: "img10.jpg",
+                audio: "song10.mp3"
+            },
+            {
+                id: 11,
+                title: "I wanna be yours",
+                artist: "Arctic Monkeys",
+                image: "img11.jpg",
+                audio: "song11.mp3"
+            },
+             {
+                id: 12,
+                title: "Okupa",
+                artist: "Wos",
+                image: "img12.jpg",
+                audio: "song12.mp3"
+            },
+            {
+                id: 13,
+                title: "505",
+                artist: "Arctic Monkeys",
+                image: "img13.jpg",
+                audio: "song13.mp3"
+            },
+            {
+                id: 14,
+                title: "Melon vino",
+                artist: "Wos",
+                image: "img14.jpg",
+                audio: "song14.mp3"
+            },
+             {
+                id: 15,
+                title: "Amor de tu vida",
+                artist: "Baskiat",
+                image: "img15.jpg",
+                audio: "song15.mp3"
+            },
+            {
+                id: 16,
+                title: "A mí",
+                artist: "Rels B",
+                image: "img16.jpg",
+                audio: "song16.mp3"
+            },
+            {
+                id: 17,
+                title: "Un rodeoooo",
+                artist: "Rels B",
+                image: "img17.jpg",
+                audio: "song17.mp3"
+            },
+             {
+                id: 18,
+                title: "My eyes",
+                artist: "Travis scott",
+                image: "img18.jpg",
+                audio: "song18.mp3"
+            },
+            {
+                id: 19,
+                title: "Objects in the mirror",
+                artist: "Mac miller",
+                image: "img19.jpg",
+                audio: "song19.mp3"
+            },
+            {
+                id: 19,
+                title: "Alma dinamita",
+                artist: "Wos",
+                image: "img20.jpg",
+                audio: "song20.mp3"
+            },
+        ];
+
+        // Generar lista de canciones
+        const songList = document.querySelector('.song-list');
+        
+        songs.forEach(song => {
+            const songItem = document.createElement('div');
+            songItem.className = 'song-item';
+            songItem.innerHTML = `
+                <img src="${song.image}" alt="Portada del álbum ${song.title}" class="album-art">
+                <div class="song-info">
+                    <div class="song-title">${song.title}</div>
+                    <div class="artist">${song.artist}</div>
+                </div>
+                <audio id="audio${song.id}" src="${song.audio}" preload="metadata"></audio>
+                <button class="play-btn" aria-label="Reproducir ${song.title}">
+                    <i class="fas fa-play"></i>
+                </button>
+            `;
+            songList.appendChild(songItem);
+        });
+
+        // Control de audio
+        let currentAudio = null;
+        
+        document.querySelectorAll('.play-btn').forEach((button, index) => {
+            const audio = button.previousElementSibling;
+            const icon = button.querySelector('i');
+            
+            button.addEventListener('click', () => {
+                if (currentAudio && currentAudio !== audio) {
+                    currentAudio.pause();
+                    currentAudio.parentElement.querySelector('i').className = 'fas fa-play';
+                }
+                
+                if (audio.paused) {
+                    audio.play();
+                    icon.className = 'fas fa-pause';
+                    currentAudio = audio;
+                } else {
+                    audio.pause();
+                    icon.className = 'fas fa-play';
+                    currentAudio = null;
+                }
+            });
+            
+            audio.addEventListener('ended', () => {
+                icon.className = 'fas fa-play';
+                currentAudio = null;
+            });
+        });
+
+        // Animación de corazones
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '💗';
+            heart.style.left = Math.random() * 100 + 'vw';
+            document.querySelector('.heart-container').appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 3000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
